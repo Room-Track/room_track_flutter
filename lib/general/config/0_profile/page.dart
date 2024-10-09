@@ -1,31 +1,18 @@
 import 'package:flutter/material.dart'; // Material Design
-
-void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Profile Screen',
-      theme: ThemeData.dark(), // Tema oscuro
-      home: const ProfilePage(),
-    );
-  }
-}
+import 'package:room_track_flutter/colors.dart';
+import 'package:room_track_flutter/general/config/tile.dart';
 
 class ProfilePage extends StatelessWidget {
-  const ProfilePage({Key? key}) : super(key: key);
+  const ProfilePage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Profile'), // Título de la AppBar
+        title: const Text('Profile'),
+        backgroundColor: AppColors.black,
       ),
+      backgroundColor: AppColors.black,
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(20.0),
@@ -35,17 +22,19 @@ class ProfilePage extends StatelessWidget {
               // Imagen de perfil con botón para cambiar la foto
               Stack(
                 children: [
-                  CircleAvatar(
+                  const CircleAvatar(
                     radius: 60,
-                    backgroundImage: AssetImage('assets/profile_placeholder.png'), // Imagen de perfil por defecto
+                    backgroundImage:
+                        AssetImage('assets/profile_placeholder.png'),
                   ),
                   Positioned(
                     bottom: 0,
                     right: 0,
                     child: IconButton(
-                      icon: const Icon(Icons.camera_alt, color: Colors.white), // Ícono de Material para la cámara
+                      icon:
+                          const Icon(Icons.camera_alt, color: AppColors.white),
                       onPressed: () {
-                        // Acción para cambiar la imagen
+                        //TODO Acción para cambiar la imagen
                       },
                     ),
                   ),
@@ -57,9 +46,9 @@ class ProfilePage extends StatelessWidget {
               const Text(
                 'John Doe',
                 style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                ),
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.white),
               ),
               const SizedBox(height: 10),
 
@@ -68,43 +57,52 @@ class ProfilePage extends StatelessWidget {
                 'john.doe@example.com',
                 style: TextStyle(
                   fontSize: 16,
-                  color: Colors.grey,
+                  color: AppColors.grey,
                 ),
               ),
               const SizedBox(height: 20),
 
               // Botón para editar la información
               ElevatedButton.icon(
-                icon: const Icon(Icons.edit), // Ícono de Material para editar
-                label: const Text('Edit Profile'),
+                icon: const Icon(
+                  Icons.edit,
+                  color: AppColors.lightBlue,
+                ),
+                label: const Text(
+                  'Edit Profile',
+                  style: TextStyle(color: AppColors.lightBlue),
+                ),
                 style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
                 ),
                 onPressed: () {
-                  // Acción para editar el perfil
+                  // TODO Acción para editar el perfil
                 },
               ),
               const SizedBox(height: 30),
 
               // Opciones adicionales (Cambiar contraseña, Cerrar sesión)
-              const Divider(),
-              ListTile(
-                leading: const Icon(Icons.lock_outline, color: Colors.blue), // Ícono de Material para contraseña
-                title: const Text('Change Password'),
-                trailing: const Icon(Icons.arrow_forward_ios, color: Colors.grey),
+              const Divider(
+                color: AppColors.grey60,
+              ),
+              SettingsTile(
+                icon: Icons.lock_outline,
+                iconColor: AppColors.brightBlue,
+                title: 'Change Password',
                 onTap: () {
-                  // Acción para cambiar la contraseña
+                  // TODO Acción cuando se selecciona la opción
                 },
               ),
-              ListTile(
-                leading: const Icon(Icons.logout, color: Colors.red), // Ícono de Material para cerrar sesión
-                title: const Text('Log Out'),
-                trailing: const Icon(Icons.arrow_forward_ios, color: Colors.grey),
+              SettingsTile(
+                icon: Icons.logout,
+                iconColor: AppColors.red,
+                title: 'Log Out',
                 onTap: () {
-                  // Acción para cerrar sesión
+                  // TODO Acción cuando se selecciona la opción
                 },
               ),
             ],
