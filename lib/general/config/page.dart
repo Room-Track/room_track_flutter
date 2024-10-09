@@ -19,7 +19,7 @@ class SettingsPage extends StatelessWidget {
             iconColor: AppColors.darkBlue,
             title: 'Profile',
             onTap: () {
-              // TODO Acción cuando se selecciona la opción
+              Navigator.pushNamed(context, '/profile');
             },
           ),
           SettingsTile(
@@ -27,7 +27,7 @@ class SettingsPage extends StatelessWidget {
             iconColor: AppColors.darkBlue,
             title: 'Language',
             onTap: () {
-              // TODO Acción cuando se selecciona la opción
+              Navigator.pushNamed(context, '/language');
             },
           ),
           SettingsTile(
@@ -35,7 +35,7 @@ class SettingsPage extends StatelessWidget {
             iconColor: AppColors.darkBlue,
             title: 'Font size',
             onTap: () {
-              // TODO Acción cuando se selecciona la opción
+              Navigator.pushNamed(context, '/font');
             },
           ),
           SettingsTile(
@@ -43,7 +43,7 @@ class SettingsPage extends StatelessWidget {
             iconColor: AppColors.darkBlue,
             title: 'Theme',
             onTap: () {
-              // TODO Acción cuando se selecciona la opción
+              Navigator.pushNamed(context, '/theme');
             },
           ),
           const Divider(height: 30),
@@ -55,7 +55,7 @@ class SettingsPage extends StatelessWidget {
             iconColor: AppColors.darkBlue,
             title: 'Usage Tips',
             onTap: () {
-              // TODO Acción cuando se selecciona la opción
+              Navigator.pushNamed(context, '/usage');
             },
           ),
           SettingsTile(
@@ -63,7 +63,7 @@ class SettingsPage extends StatelessWidget {
             iconColor: AppColors.darkBlue,
             title: 'Share',
             onTap: () {
-              // TODO Acción cuando se selecciona la opción
+              Navigator.pushNamed(context, '/share');
             },
           ),
           SettingsTile(
@@ -71,7 +71,7 @@ class SettingsPage extends StatelessWidget {
             iconColor: AppColors.darkBlue,
             title: 'Contact Us',
             onTap: () {
-              // TODO Acción cuando se selecciona la opción
+              Navigator.pushNamed(context, '/contact');
             },
           ),
           SettingsTile(
@@ -79,7 +79,7 @@ class SettingsPage extends StatelessWidget {
             iconColor: AppColors.darkBlue,
             title: 'Version',
             onTap: () {
-              // TODO Acción cuando se selecciona la opción
+              Navigator.pushNamed(context, '/version');
             },
           ),
         ],

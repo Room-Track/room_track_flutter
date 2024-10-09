@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:room_track_flutter/colors.dart';
-import 'package:room_track_flutter/general/config/page.dart';
+import 'package:room_track_flutter/general/config/layout.dart';
 import 'package:room_track_flutter/general/home/page.dart';
 import 'package:room_track_flutter/general/map/page.dart';
 
@@ -33,7 +33,7 @@ class _HomeLayout extends State<HomeLayout> {
       body: IndexedStack(
         index: index,
         children: const [
-          SettingsPage(),
+          SettingsLayout(),
           HomePage(),
           MapPage(),
         ],
