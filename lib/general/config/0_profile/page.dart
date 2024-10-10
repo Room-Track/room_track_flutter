@@ -7,6 +7,7 @@ class ProfilePage extends StatelessWidget {
   ProfilePage({super.key});
 
   final user = FirebaseAuth.instance.currentUser!;
+
   String getUserName(String email) {
     return email.substring(0, email.indexOf("@"));
   }

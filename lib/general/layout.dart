@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:room_track_flutter/colors.dart';
 import 'package:room_track_flutter/general/config/layout.dart';
 import 'package:room_track_flutter/general/home/page.dart';
@@ -18,6 +19,7 @@ class _HomeLayout extends State<HomeLayout> {
     return Scaffold(
       backgroundColor: AppColors.black,
       bottomNavigationBar: NavigationBar(
+        height: 110,
           selectedIndex: index,
           onDestinationSelected: (int idx) => {
                 setState(() {
@@ -25,10 +27,10 @@ class _HomeLayout extends State<HomeLayout> {
                 })
               },
           indicatorColor: AppColors.lightBlue90,
-          destinations: const <NavigationDestination>[
-            NavigationDestination(icon: Icon(Icons.favorite), label: "Config"),
-            NavigationDestination(icon: Icon(Icons.favorite), label: "Home"),
-            NavigationDestination(icon: Icon(Icons.favorite), label: "Map"),
+          destinations: <NavigationDestination>[
+            NavigationDestination(icon: SvgPicture.asset("assets/config.svg"), label: "Config"),
+            NavigationDestination(icon: SvgPicture.asset("assets/home.svg"), label: "Home"),
+            NavigationDestination(icon: SvgPicture.asset("assets/map.svg"), label: "Map"),
           ]),
       body: IndexedStack(
         index: index,
