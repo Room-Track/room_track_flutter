@@ -12,6 +12,9 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_svg: ^2.0.0
+  share_plus: ^6.3.0
+  url_launcher: ^6.1.7
+  package_info_plus: ^3.0.6
 
 dev_dependencies:
   flutter_test:
@@ -24,3 +27,12 @@ flutter:
     - assets/logo.svg
     - assets/outlook.svg
     - assets/profile_placeholder.png
+    - assets/search.svg
+    - assets/room.svg
+    - assets/config.svg
+    - assets/building.svg
+    - assets/arrow_forward.svg
+    - assets/home.svg
+    - assets/map.svg
+    - assets/pc.svg
+
