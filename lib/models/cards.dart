@@ -19,24 +19,12 @@ class CardInfo {
 }
 
 class CardModel extends ChangeNotifier {
-  List<CardInfo> taggedCards;
   List<CardInfo> historyCards;
   int maxHistoryLength = 4;
-  String token;
 
-  CardModel(
-      {required this.taggedCards,
-      required this.historyCards,
-      required this.token});
-
-  void addTagged(CardInfo card) {
-    taggedCards.add(card);
-  }
-
-  void removeTagged(CardInfo card) {
-    taggedCards.removeWhere((tagCard) => tagCard.name == card.name);
-    notifyListeners();
-  }
+  CardModel({
+    required this.historyCards,
+  });
 
   void pushHistory(CardInfo card) {
     historyCards.add(card);
@@ -49,8 +37,6 @@ class CardModel extends ChangeNotifier {
 
 final cardProvider = ChangeNotifierProvider<CardModel>((ref) {
   return CardModel(
-    taggedCards: [],
     historyCards: [],
-    token: "",
   );
 });
