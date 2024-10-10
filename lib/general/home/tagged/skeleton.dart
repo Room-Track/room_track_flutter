@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:room_track_flutter/colors.dart';
-import 'package:room_track_flutter/elevations.dart';
 import 'package:room_track_flutter/general/home/cardSkeleton.dart';
 import 'package:room_track_flutter/models/preferences.dart';
 

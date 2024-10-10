@@ -3,7 +3,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:room_track_flutter/colors.dart';
 import 'package:room_track_flutter/elevations.dart';
+import 'package:room_track_flutter/general/home/info/page.dart';
 import 'package:room_track_flutter/models/preferences.dart';
+
+void goToInfoPage(BuildContext context, String name) {
+  Navigator.push(
+      context, MaterialPageRoute(builder: (context) => InfoPage(name: name)));
+}
 
 class Cardroom extends ConsumerWidget {
   final String name;

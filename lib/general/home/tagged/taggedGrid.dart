@@ -14,10 +14,6 @@ class Taggedgrid extends ConsumerWidget {
     required this.tagged,
   });
 
-  void onTap() {
-    print("Button pressed!");
-  }
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final colorSchemeName = ref.watch(preferencesProvider).colorScheme;
@@ -36,7 +32,9 @@ class Taggedgrid extends ConsumerWidget {
                 name: card.name,
                 isTagged: card.isTagged,
                 icon: card.icon,
-                onTapF: onTap,
+                onTapF: () {
+                  goToInfoPage(context, card.name);
+                },
               );
             }),
             Card(
