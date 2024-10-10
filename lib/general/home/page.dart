@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:room_track_flutter/colors.dart';
 import 'package:room_track_flutter/elevations.dart';
-import 'package:room_track_flutter/general/home/cardRoom.dart';
+import 'package:room_track_flutter/general/home/tagged/lazyTagged.dart';
 import 'package:room_track_flutter/models/preferences.dart';
 
 class HomePage extends ConsumerWidget {
@@ -16,26 +16,11 @@ class HomePage extends ConsumerWidget {
     return email.substring(0, email.indexOf("@"));
   }
 
-  void onTap() {
-    print("Button pressed!");
-  }
-
-  List<Cardroom> getTagged() {
-    return List.generate(3, (i) {
-      return Cardroom(
-        name: "M20$i",
-        isTagged: true,
-        icon: "assets/room.svg",
-        onTapF: onTap,
-        
-      );
-    });
-  }
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final colorSchemeName = ref.watch(preferencesProvider).colorScheme;
     final colorScheme = AppColors.schemes[colorSchemeName]!;
+
     return Scaffold(
       backgroundColor: colorScheme["back"],
       body: ListView(
@@ -106,57 +91,14 @@ class HomePage extends ConsumerWidget {
           const Padding(
             padding: EdgeInsets.all(20),
             child: Text(
-              "Tagged Rooms",
+              "Tagged",
               style: TextStyle(
                 fontSize: 32,
                 color: AppColors.white,
               ),
             ),
           ),
-          SizedBox(
-            height: 450,
-            child: Align(
-              alignment: Alignment.topCenter,
-              child: Wrap(
-                alignment: WrapAlignment.start,
-                spacing: 10,
-                runSpacing: 10,
-                children: [
-                  ...getTagged(),
-                  Card(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                      side: BorderSide(
-                        color: colorScheme["neutral2"]!,
-                        width: 2.0,
-                      ),
-                    ),
-                    color: colorScheme["back"],
-                    clipBehavior: Clip.hardEdge,
-                    elevation: 0,
-                    child: InkWell(
-                        onTap: () {
-                          // TODO mostrar todos los taggeds
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: SizedBox(
-                              width: 190,
-                              height: 140,
-                              child: Center(
-                                child: SvgPicture.asset(
-                                  "assets/arrow_forward.svg",
-                                  width: 30,
-                                  height: 30,
-                                  color: colorScheme["text"],
-                                ),
-                              )),
-                        )),
-                  )
-                ],
-              ),
-            ),
-          ),
+          const LazyTaggeds(),
         ],
       ),
     );
