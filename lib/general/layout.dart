@@ -32,10 +32,10 @@ class _HomeLayout extends State<HomeLayout> {
           ]),
       body: IndexedStack(
         index: index,
-        children: const [
-          SettingsLayout(),
+        children: [
+          const SettingsLayout(),
           HomePage(),
-          MapPage(),
+          const MapPage(),
         ],
       ),
     );
