@@ -27,14 +27,17 @@ class HomePage extends ConsumerWidget {
         isTagged: true,
         icon: "assets/room.svg",
         onTapF: onTap,
+        
       );
     });
   }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final colorSchemeName = ref.watch(preferencesProvider).colorScheme;
+    final colorScheme = AppColors.schemes[colorSchemeName]!;
     return Scaffold(
-      backgroundColor: AppColors.black,
+      backgroundColor: colorScheme["back"],
       body: ListView(
         padding: const EdgeInsets.all(10),
         children: [
@@ -43,27 +46,24 @@ class HomePage extends ConsumerWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Text(
-                    ref.watch(preferencesProvider).fontScheme,
-                  ),
                   Container(
                     alignment: Alignment.center,
                     padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
                     margin: const EdgeInsets.fromLTRB(0, 0, 10, 0),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
-                      color: AppColors.brightBlue,
+                      color: colorScheme["primary"],
                     ),
                     child: Text(
                       getUserName(user.email!),
                       style: const TextStyle(fontWeight: FontWeight.w500),
                     ),
                   ),
-                  const CircleAvatar(
+                  CircleAvatar(
                     radius: 25,
                     backgroundImage:
-                        AssetImage('assets/profile_placeholder.png'),
-                    backgroundColor: AppColors.darkGrey,
+                        const AssetImage('assets/profile_placeholder.png'),
+                    backgroundColor: colorScheme["neutral2"],
                   )
                 ],
               )),
@@ -92,9 +92,10 @@ class HomePage extends ConsumerWidget {
                         height: 20,
                       ),
                       const SizedBox(width: 15),
-                      const Text(
+                      Text(
                         "Search rooms",
-                        style: TextStyle(color: AppColors.grey, fontSize: 16),
+                        style: TextStyle(
+                            color: colorScheme["neutral"], fontSize: 16),
                       )
                     ],
                   ),
@@ -125,12 +126,12 @@ class HomePage extends ConsumerWidget {
                   Card(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0),
-                      side: const BorderSide(
-                        color: AppColors.darkGrey,
+                      side: BorderSide(
+                        color: colorScheme["neutral2"]!,
                         width: 2.0,
                       ),
                     ),
-                    color: AppColors.black,
+                    color: colorScheme["back"],
                     clipBehavior: Clip.hardEdge,
                     elevation: 0,
                     child: InkWell(
@@ -147,6 +148,7 @@ class HomePage extends ConsumerWidget {
                                   "assets/arrow_forward.svg",
                                   width: 30,
                                   height: 30,
+                                  color: colorScheme["text"],
                                 ),
                               )),
                         )),

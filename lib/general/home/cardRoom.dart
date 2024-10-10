@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:room_track_flutter/colors.dart';
 import 'package:room_track_flutter/elevations.dart';
+import 'package:room_track_flutter/models/preferences.dart';
 
-class Cardroom extends StatelessWidget {
+class Cardroom extends ConsumerWidget {
   final String name;
   final String icon;
   final bool isTagged;
@@ -18,9 +20,11 @@ class Cardroom extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final colorSchemeName = ref.watch(preferencesProvider).colorScheme;
+    final colorScheme = AppColors.schemes[colorSchemeName]!;
     return Card(
-      color: AppColors.darkGrey,
+      color: colorScheme["neutral2"],
       clipBehavior: Clip.hardEdge,
       elevation: AppElevations.m2,
       child: InkWell(
@@ -37,20 +41,21 @@ class Cardroom extends StatelessWidget {
                     alignment: Alignment.centerRight,
                     child: Icon(
                       isTagged ? Icons.star_sharp : Icons.star_outline,
-                      color: AppColors.white,
+                      color: colorScheme["text"],
                     ),
                   ),
                   SvgPicture.asset(
                     icon,
                     width: 60,
                     height: 60,
+                    color: colorScheme["text"],
                   ),
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
                       name,
-                      style: const TextStyle(
-                        color: AppColors.white,
+                      style: TextStyle(
+                        color: colorScheme["text"],
                       ),
                     ),
                   ),
