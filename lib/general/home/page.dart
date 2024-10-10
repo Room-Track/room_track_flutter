@@ -1,11 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:room_track_flutter/colors.dart';
 import 'package:room_track_flutter/elevations.dart';
 import 'package:room_track_flutter/general/home/cardRoom.dart';
+import 'package:room_track_flutter/models/preferences.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends ConsumerWidget {
   HomePage({super.key});
 
   final user = FirebaseAuth.instance.currentUser!;
@@ -30,7 +32,7 @@ class HomePage extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       backgroundColor: AppColors.black,
       body: ListView(
@@ -41,6 +43,9 @@ class HomePage extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
+                  Text(
+                    ref.watch(preferencesProvider).fontScheme,
+                  ),
                   Container(
                     alignment: Alignment.center,
                     padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),

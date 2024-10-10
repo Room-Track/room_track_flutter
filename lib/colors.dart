@@ -12,4 +12,26 @@ class AppColors {
   static const Color lightBlue = Color(0xff80d6ff);
   static const Color lightBlue90 = Color.fromARGB(90, 128, 215, 255);
   static const Color red = Color(0xfff04235);
+
+  static Map<String, Color> darkScheme = {
+    'primary': brightBlue,
+    'secondary': lightBlue,
+    'neutral': grey,
+    'neutral2': darkGrey,
+    'text': white,
+    'back': black,
+  };
+  static Map<String, Color> lightScheme = {
+    'primary': brightBlue,
+    'secondary': lightBlue,
+    'neutral': grey,
+    'neutral2': darkGrey,
+    'text': black,
+    'back': white,
+  };
+  static Map<String, Map<String, Color>> schemes = {
+    'Dark': darkScheme,
+    'Light': lightScheme,
+    'System': darkScheme,
+  };
 }
