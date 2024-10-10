@@ -28,3 +28,11 @@ flutter:
     - assets/outlook.svg
     - assets/profile_placeholder.png
     - assets/search.svg
+    - assets/room.svg
+    - assets/config.svg
+    - assets/building.svg
+    - assets/arrow_forward.svg
+    - assets/home.svg
+    - assets/map.svg
+    - assets/pc.svg
+
