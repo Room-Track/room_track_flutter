@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:room_track_flutter/colors.dart';
+import 'package:room_track_flutter/fonts.dart';
 
 class FontPage extends StatefulWidget {
-  const FontPage({Key? key}) : super(key: key);
+  const FontPage({super.key});
 
   @override
-  _FontPageState createState() => _FontPageState();
+  State<StatefulWidget> createState() => _FontPageState();
 }
 
 class _FontPageState extends State<FontPage> {
-  // Tamaño de fuente seleccionado, por defecto "Medium"
   String _selectedFontSize = 'Medium';
 
   final List<Map<String, double>> _fontSizes = [
-    {'Small': 12.0},
-    {'Medium': 16.0},
-    {'Large': 20.0},
-    {'Extra Large': 24.0},
+    {'Small': AppFonts.small},
+    {'Medium': AppFonts.medium},
+    {'Large': AppFonts.large},
+    {'Extra Large': AppFonts.extraLage},
   ];
 
   @override
@@ -24,13 +24,9 @@ class _FontPageState extends State<FontPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Font Size'),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.pop(context); // Vuelve a la página anterior
-          },
-        ),
+      backgroundColor: AppColors.black,
       ),
+      backgroundColor: AppColors.black,
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
@@ -45,8 +41,6 @@ class _FontPageState extends State<FontPage> {
               ),
             ),
             const SizedBox(height: 20),
-
-            // Lista de tamaños de fuente
             Expanded(
               child: ListView.builder(
                 itemCount: _fontSizes.length,
@@ -57,17 +51,16 @@ class _FontPageState extends State<FontPage> {
                     title: Text(
                       fontSizeName,
                       style: TextStyle(
-                        color: Colors.white,
-                        fontSize: fontSizeValue, // Muestra el tamaño de fuente en la lista
+                        color: AppColors.white,
+                        fontSize: fontSizeValue,
                       ),
                     ),
                     trailing: _selectedFontSize == fontSizeName
-                        ? const Icon(Icons.check, color: Colors.blue)
+                        ? const Icon(Icons.check, color: AppColors.brightBlue)
                         : null,
                     onTap: () {
                       setState(() {
                         _selectedFontSize = fontSizeName;
-                        // Aquí puedes guardar la preferencia de tamaño de fuente
                       });
                     },
                   );
