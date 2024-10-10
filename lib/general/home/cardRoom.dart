@@ -35,8 +35,10 @@ class Cardroom extends StatelessWidget {
                 children: [
                   Align(
                     alignment: Alignment.centerRight,
-                    child:
-                        Icon(isTagged ? Icons.star_sharp : Icons.star_outline),
+                    child: Icon(
+                      isTagged ? Icons.star_sharp : Icons.star_outline,
+                      color: AppColors.white,
+                    ),
                   ),
                   SvgPicture.asset(
                     icon,
