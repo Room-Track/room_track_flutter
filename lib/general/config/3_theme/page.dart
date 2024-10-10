@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:room_track_flutter/colors.dart';
 
 class ThemePage extends StatefulWidget {
-  const ThemePage({Key? key}) : super(key: key);
+  const ThemePage({super.key});
 
   @override
-  _ThemePageState createState() => _ThemePageState();
+  State<StatefulWidget> createState() => _ThemePageState();
 }
 
 class _ThemePageState extends State<ThemePage> {
