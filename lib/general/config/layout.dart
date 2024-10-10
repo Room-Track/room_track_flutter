@@ -28,7 +28,7 @@ class _SettingsLayout extends State<SettingsLayout> {
         builder: (BuildContext context) {
           switch (settings.name) {
             case '/profile':
-              return const ProfilePage();
+              return ProfilePage();
             case '/language':
               return const LanguagePage();
             case '/font':
