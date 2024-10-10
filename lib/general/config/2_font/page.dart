@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:room_track_flutter/colors.dart';
 import 'package:room_track_flutter/fonts.dart';
+import 'package:room_track_flutter/models/preferences.dart';
 
-class FontPage extends StatefulWidget {
+class FontPage extends ConsumerStatefulWidget {
   const FontPage({super.key});
 
   @override
-  State<StatefulWidget> createState() => _FontPageState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _FontPageState();
 }
 
-class _FontPageState extends State<FontPage> {
-  String _selectedFontSize = 'Medium';
+class _FontPageState extends ConsumerState<ConsumerStatefulWidget> {
+  String _selectedFontSize = "";
 
   final List<Map<String, double>> _fontSizes = [
     {'Small': AppFonts.small},
@@ -19,12 +21,17 @@ class _FontPageState extends State<FontPage> {
     {'Extra Large': AppFonts.extraLage},
   ];
 
+  void _changeFonts(String scheme) {
+    ref.read(preferencesProvider).fontScheme = scheme;
+  }
+
   @override
   Widget build(BuildContext context) {
+    _selectedFontSize = ref.watch(preferencesProvider).fontScheme;
     return Scaffold(
       appBar: AppBar(
         title: const Text('Font Size'),
-      backgroundColor: AppColors.black,
+        backgroundColor: AppColors.black,
       ),
       backgroundColor: AppColors.black,
       body: Padding(
@@ -61,6 +68,7 @@ class _FontPageState extends State<FontPage> {
                     onTap: () {
                       setState(() {
                         _selectedFontSize = fontSizeName;
+                        _changeFonts(fontSizeName);
                       });
                     },
                   );

@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:room_track_flutter/colors.dart';
+import 'package:room_track_flutter/models/preferences.dart';
 
-class ThemePage extends StatefulWidget {
+class ThemePage extends ConsumerStatefulWidget {
   const ThemePage({super.key});
 
   @override
-  State<StatefulWidget> createState() => _ThemePageState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _ThemePageState();
 }
 
-class _ThemePageState extends State<ThemePage> {
+class _ThemePageState extends ConsumerState<ConsumerStatefulWidget> {
   // Almacena el tema seleccionado
-  String _selectedTheme = 'System';
+  String _selectedTheme = "";
 
   final List<Map<String, ThemeMode>> _themes = [
     {'Light': ThemeMode.light},
@@ -18,8 +20,13 @@ class _ThemePageState extends State<ThemePage> {
     {'System': ThemeMode.system},
   ];
 
+  void _changeTheme(String theme) {
+    ref.read(preferencesProvider).changeColorScheme(theme);
+  }
+
   @override
   Widget build(BuildContext context) {
+    _selectedTheme = ref.watch(preferencesProvider).colorScheme;
     return Scaffold(
       appBar: AppBar(
         title: const Text('Theme'),
@@ -51,7 +58,6 @@ class _ThemePageState extends State<ThemePage> {
                 itemCount: _themes.length,
                 itemBuilder: (context, index) {
                   final themeName = _themes[index].keys.first;
-                  final themeMode = _themes[index].values.first;
                   return ListTile(
                     title: Text(
                       themeName,
@@ -63,8 +69,7 @@ class _ThemePageState extends State<ThemePage> {
                     onTap: () {
                       setState(() {
                         _selectedTheme = themeName;
-                        // Aquí puedes aplicar el cambio de tema
-                        _changeTheme(context, themeMode);
+                        _changeTheme(themeName);
                       });
                     },
                   );
@@ -75,12 +80,5 @@ class _ThemePageState extends State<ThemePage> {
         ),
       ),
     );
-  }
-
-  // Función para cambiar el tema
-  void _changeTheme(BuildContext context, ThemeMode themeMode) {
-    // Esta función puede ser extendida para actualizar el tema de la app
-    // Puedes usar un estado global (como Provider) para aplicar el cambio de tema en toda la app
-    // Ejemplo: context.read<ThemeProvider>().setTheme(themeMode);
   }
 }
