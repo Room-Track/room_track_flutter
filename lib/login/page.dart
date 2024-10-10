@@ -1,9 +1,65 @@
+// ignore_for_file: use_build_context_synchronously
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:room_track_flutter/colors.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
+
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+
+  void onSignIn() async {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return const Center(
+            child: CircularProgressIndicator(
+              color: AppColors.brightBlue,
+            ),
+          );
+        });
+
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: emailController.text,
+        password: passwordController.text,
+      );
+      Navigator.pop(context);
+    } on FirebaseAuthException catch (err) {
+      Navigator.pop(context);
+      wrongField(err.code);
+    }
+  }
+
+  void wrongField(String errCode) {
+    String message;
+    switch (errCode) {
+      case "user-not-found":
+        message = "Incorrect email";
+        break;
+      case "wrong-password":
+        message = "Incorrect password";
+        break;
+      default:
+        message = "Unkown error";
+        break;
+    }
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text(message),
+          );
+        });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +91,8 @@ class LoginPage extends StatelessWidget {
                     TextField(
                       // CORREO
                       style: const TextStyle(color: AppColors.white),
+                      keyboardType: TextInputType.emailAddress,
+                      controller: emailController,
                       decoration: InputDecoration(
                         labelText: 'Email',
                         labelStyle: const TextStyle(color: AppColors.white),
@@ -52,6 +110,7 @@ class LoginPage extends StatelessWidget {
                     TextField(
                       // CONTRASEÑA
                       style: const TextStyle(color: AppColors.white),
+                      controller: passwordController,
                       obscureText: true,
                       decoration: InputDecoration(
                         labelText: 'Password',
@@ -93,8 +152,7 @@ class LoginPage extends StatelessWidget {
                           ),
                         ),
                         onPressed: () {
-                          // TODO Lógica de inicio de sesión
-                          Navigator.pushNamed(context, "/home");
+                          onSignIn();
                         },
                         child: const Padding(
                           padding: EdgeInsets.all(15.0),
