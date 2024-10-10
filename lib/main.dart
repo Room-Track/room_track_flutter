@@ -18,6 +18,7 @@ class MyApp extends StatelessWidget {
       title: 'App',
       theme: ThemeData.dark(),
       home: const AuthLayout(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }

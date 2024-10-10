@@ -159,7 +159,7 @@ class _LoginPageState extends State<LoginPage> {
                           child: Text(
                             'Sign in',
                             style: TextStyle(
-                              color: Colors.white,
+                              color: AppColors.white,
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
                             ),

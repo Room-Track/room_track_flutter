@@ -15,7 +15,7 @@ class AuthLayout extends StatelessWidget {
           if (snapshot.hasData) {
             return const HomeLayout();
           } else {
-            return LoginPage();
+            return const LoginPage();
           }
         },
       ),
