@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:room_track_flutter/colors.dart';
 import 'package:room_track_flutter/elevations.dart';
+import 'package:room_track_flutter/general/home/cardRoom.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({super.key});
@@ -47,35 +48,62 @@ class HomePage extends StatelessWidget {
                 ],
               )),
           const SizedBox(height: 10),
-          SizedBox(
-            width: double.infinity,
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.white,
-                  elevation: AppElevations.m3,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(50))),
-              onPressed: () {
-                // TODO Pasar a pantalla de busqueda
-              },
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    SvgPicture.asset(
-                      "assets/search.svg",
-                      width: 20,
-                      height: 20,
-                    ),
-                    const SizedBox(width: 15),
-                    const Text(
-                      "Search rooms",
-                      style: TextStyle(color: AppColors.grey, fontSize: 16),
-                    )
-                  ],
+          Padding(
+            padding: const EdgeInsets.all(10),
+            child: SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.white,
+                    elevation: AppElevations.m3,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(50))),
+                onPressed: () {
+                  // TODO Pasar a pantalla de busqueda
+                },
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      SvgPicture.asset(
+                        "assets/search.svg",
+                        width: 20,
+                        height: 20,
+                      ),
+                      const SizedBox(width: 15),
+                      const Text(
+                        "Search rooms",
+                        style: TextStyle(color: AppColors.grey, fontSize: 16),
+                      )
+                    ],
+                  ),
                 ),
               ),
+            ),
+          ),
+          const Padding(
+            padding: EdgeInsets.all(20),
+            child: Text(
+              "Tagged Rooms",
+              style: TextStyle(
+                fontSize: 32,
+                color: AppColors.white,
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 600,
+            child: GridView.count(
+              crossAxisCount: 2,
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              children: const [
+                Cardroom(name: "M203", isTagged: true, icon: "assets/room.svg"),
+                Cardroom(name: "M204", isTagged: true, icon: "assets/room.svg"),
+                Cardroom(name: "M205", isTagged: true, icon: "assets/room.svg"),
+                Cardroom(name: "M206", isTagged: true, icon: "assets/room.svg"),
+              ],
             ),
           ),
         ],
