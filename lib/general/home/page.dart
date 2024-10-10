@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:room_track_flutter/colors.dart';
 import 'package:room_track_flutter/elevations.dart';
 import 'package:room_track_flutter/general/home/cardRoom.dart';
+import 'package:room_track_flutter/general/home/search/page.dart';
 import 'package:room_track_flutter/general/home/tagged/lazyTagged.dart';
 import 'package:room_track_flutter/models/cards.dart';
 import 'package:room_track_flutter/models/preferences.dart';
@@ -18,8 +19,9 @@ class HomePage extends ConsumerWidget {
     return email.substring(0, email.indexOf("@"));
   }
 
-  void onTap() {
-    print("History pressed!");
+  void goToSearchPage(BuildContext context) {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => const SearchPage()));
   }
 
   @override
@@ -70,7 +72,7 @@ class HomePage extends ConsumerWidget {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(50))),
                 onPressed: () {
-                  // TODO Pasar a pantalla de busqueda
+                  goToSearchPage(context);
                 },
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
@@ -130,7 +132,9 @@ class HomePage extends ConsumerWidget {
                           name: card.name,
                           isTagged: card.isTagged,
                           icon: card.icon,
-                          onTapF: onTap,
+                          onTapF: () {
+                            goToInfoPage(context, card.name);
+                          },
                         );
                       }) as List<Widget>,
                     )),
