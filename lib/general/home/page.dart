@@ -14,6 +14,21 @@ class HomePage extends StatelessWidget {
     return email.substring(0, email.indexOf("@"));
   }
 
+  void onTap() {
+    print("Button pressed!");
+  }
+
+  List<Cardroom> getTagged() {
+    return List.generate(3, (i) {
+      return Cardroom(
+        name: "M20$i",
+        isTagged: true,
+        icon: "assets/room.svg",
+        onTapF: onTap,
+      );
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -93,17 +108,46 @@ class HomePage extends StatelessWidget {
             ),
           ),
           SizedBox(
-            height: 600,
-            child: GridView.count(
-              crossAxisCount: 2,
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              children: const [
-                Cardroom(name: "M203", isTagged: true, icon: "assets/room.svg"),
-                Cardroom(name: "M204", isTagged: true, icon: "assets/room.svg"),
-                Cardroom(name: "M205", isTagged: true, icon: "assets/room.svg"),
-                Cardroom(name: "M206", isTagged: true, icon: "assets/room.svg"),
-              ],
+            height: 450,
+            child: Align(
+              alignment: Alignment.topCenter,
+              child: Wrap(
+                alignment: WrapAlignment.start,
+                spacing: 10,
+                runSpacing: 10,
+                children: [
+                  ...getTagged(),
+                  Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                      side: const BorderSide(
+                        color: AppColors.darkGrey,
+                        width: 2.0,
+                      ),
+                    ),
+                    color: AppColors.black,
+                    clipBehavior: Clip.hardEdge,
+                    elevation: 0,
+                    child: InkWell(
+                        onTap: () {
+                          // TODO mostrar todos los taggeds
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.all(10),
+                          child: SizedBox(
+                              width: 190,
+                              height: 140,
+                              child: Center(
+                                child: SvgPicture.asset(
+                                  "assets/arrow_forward.svg",
+                                  width: 30,
+                                  height: 30,
+                                ),
+                              )),
+                        )),
+                  )
+                ],
+              ),
             ),
           ),
         ],
