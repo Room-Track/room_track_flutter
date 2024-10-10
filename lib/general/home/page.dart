@@ -4,7 +4,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:room_track_flutter/colors.dart';
 import 'package:room_track_flutter/elevations.dart';
+import 'package:room_track_flutter/general/home/cardRoom.dart';
 import 'package:room_track_flutter/general/home/tagged/lazyTagged.dart';
+import 'package:room_track_flutter/models/cards.dart';
 import 'package:room_track_flutter/models/preferences.dart';
 
 class HomePage extends ConsumerWidget {
@@ -16,11 +18,15 @@ class HomePage extends ConsumerWidget {
     return email.substring(0, email.indexOf("@"));
   }
 
+  void onTap() {
+    print("History pressed!");
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final colorSchemeName = ref.watch(preferencesProvider).colorScheme;
     final colorScheme = AppColors.schemes[colorSchemeName]!;
-
+    final history = ref.watch(cardProvider).historyCards;
     return Scaffold(
       backgroundColor: colorScheme["back"],
       body: ListView(
@@ -99,6 +105,37 @@ class HomePage extends ConsumerWidget {
             ),
           ),
           const LazyTaggeds(),
+          const Padding(
+            padding: EdgeInsets.all(20),
+            child: Text(
+              "History",
+              style: TextStyle(
+                fontSize: 32,
+                color: AppColors.white,
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 400,
+            child: Align(
+              alignment: Alignment.topCenter,
+              child: (history.isEmpty
+                  ? const Center(child: Text("Try searching for rooms.."))
+                  : Wrap(
+                      alignment: WrapAlignment.start,
+                      spacing: 10,
+                      runSpacing: 10,
+                      children: history.map((card) {
+                        return Cardroom(
+                          name: card.name,
+                          isTagged: card.isTagged,
+                          icon: card.icon,
+                          onTapF: onTap,
+                        );
+                      }) as List<Widget>,
+                    )),
+            ),
+          ),
         ],
       ),
     );

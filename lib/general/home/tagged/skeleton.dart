@@ -14,7 +14,7 @@ class TaggedSkeleton extends ConsumerWidget {
     final colorSchemeName = ref.watch(preferencesProvider).colorScheme;
     final colorScheme = AppColors.schemes[colorSchemeName]!;
     return SizedBox(
-      height: 450,
+      height: 400,
       child: Align(
         alignment: Alignment.topCenter,
         child: Wrap(

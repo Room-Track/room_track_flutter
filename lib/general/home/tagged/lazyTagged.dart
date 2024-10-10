@@ -32,7 +32,12 @@ class _LazyTaggeds extends ConsumerState<ConsumerStatefulWidget> {
             return Taggedgrid(tagged: snapshot.data!);
           }
 
-          return const Text("No data :c");
+          return const SizedBox(
+            height: 400,
+            child: Center(
+              child: Text("the server does not respond.."),
+            ),
+          );
         });
   }
 }
