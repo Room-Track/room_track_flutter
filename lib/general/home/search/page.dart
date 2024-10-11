@@ -8,12 +8,14 @@ class SearchPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      body: Column(
+      backgroundColor: AppColors.black,
+      body: ListView(
         children: [
           const SizedBox(height: 10),
           Padding(
             padding: const EdgeInsets.all(5),
             child: SearchBar(
+              autoFocus: true,
               leading: IconButton(
                   onPressed: () {
                     Navigator.pop(context);
