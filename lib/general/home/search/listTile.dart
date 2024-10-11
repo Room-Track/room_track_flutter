@@ -1,28 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:room_track_flutter/colors.dart';
+import 'package:room_track_flutter/general/home/cardRoom.dart';
+import 'package:room_track_flutter/models/cards.dart';
 
 class SearchTile extends StatelessWidget {
-  const SearchTile({super.key});
+  final CardInfo info;
+  const SearchTile({
+    super.key,
+    required this.info,
+  });
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
       contentPadding: const EdgeInsets.symmetric(vertical: 15, horizontal: 30),
       leading: SvgPicture.asset(
-        'assets/room.svg',
+        info.icon,
         width: 30,
         height: 30,
       ),
-      subtitle: const Text(
-        "ClassRoom",
-        style: TextStyle(
+      subtitle: Text(
+        info.type,
+        style: const TextStyle(
           color: AppColors.grey,
         ),
       ),
-      title: const Text(
-        "M203",
-        style: TextStyle(color: AppColors.white),
+      title: Text(
+        info.name,
+        style: const TextStyle(color: AppColors.white),
       ),
       trailing: IconButton(
         onPressed: () {},
@@ -31,7 +37,9 @@ class SearchTile extends StatelessWidget {
           size: 30,
         ),
       ),
-      onTap: () {},
+      onTap: () {
+        goToInfoPage(context, info.name);
+      },
     );
   }
 }

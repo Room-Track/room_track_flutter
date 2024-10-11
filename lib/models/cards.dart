@@ -5,16 +5,21 @@ class CardInfo {
   String name;
   String icon;
   bool isTagged;
+  String type;
 
   CardInfo({
     required this.name,
     required this.icon,
     required this.isTagged,
+    required this.type,
   });
 
   factory CardInfo.fromJson(Map<String, dynamic> json) {
     return CardInfo(
-        name: json['name'], icon: json['icon'], isTagged: json['isTagged']);
+        name: json['name'],
+        icon: json['icon'],
+        isTagged: json['isTagged'],
+        type: json['type']);
   }
 }
 

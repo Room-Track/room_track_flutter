@@ -14,7 +14,7 @@ class SearchList extends StatelessWidget {
     return Column(
       children: [
         ...list.map((card) {
-          return const SearchTile();
+          return SearchTile(info: card);
         }),
       ],
     );
