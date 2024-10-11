@@ -106,7 +106,7 @@ class HomePage extends ConsumerWidget {
               ),
             ),
           ),
-          const LazyTaggeds(),
+          const LazyTaggeds(limit: 3),
           const Padding(
             padding: EdgeInsets.all(20),
             child: Text(

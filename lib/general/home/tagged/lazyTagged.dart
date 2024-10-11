@@ -7,18 +7,29 @@ import 'package:room_track_flutter/http/get.dart';
 import 'package:room_track_flutter/models/cards.dart';
 
 class LazyTaggeds extends ConsumerStatefulWidget {
-  const LazyTaggeds({super.key});
+  final int limit;
+  const LazyTaggeds({
+    super.key,
+    required this.limit,
+  });
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _LazyTaggeds();
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      // ignore: no_logic_in_create_state
+      _LazyTaggeds(limit: limit);
 }
 
 class _LazyTaggeds extends ConsumerState<ConsumerStatefulWidget> {
   late Future<List<CardInfo>> _futureCards;
+  final int limit;
+
+  _LazyTaggeds({
+    required this.limit,
+  });
 
   @override
   void initState() {
     super.initState();
-    _futureCards = httpReuestTaggeds();
+    _futureCards = httpReuestTaggedsLimit(limit);
   }
 
   @override
