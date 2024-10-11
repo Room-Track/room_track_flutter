@@ -96,24 +96,24 @@ class HomePage extends ConsumerWidget {
               ),
             ),
           ),
-          const Padding(
-            padding: EdgeInsets.all(20),
+          Padding(
+            padding: const EdgeInsets.all(20),
             child: Text(
               "Tagged",
               style: TextStyle(
                 fontSize: 32,
-                color: AppColors.white,
+                color: colorScheme['text'],
               ),
             ),
           ),
           const LazyTaggeds(limit: 3),
-          const Padding(
-            padding: EdgeInsets.all(20),
+          Padding(
+            padding: const EdgeInsets.all(20),
             child: Text(
               "History",
               style: TextStyle(
                 fontSize: 32,
-                color: AppColors.white,
+                color: colorScheme['text'],
               ),
             ),
           ),

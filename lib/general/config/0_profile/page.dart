@@ -1,9 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart'; // Material Design
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:room_track_flutter/colors.dart';
 import 'package:room_track_flutter/general/config/tile.dart';
+import 'package:room_track_flutter/models/preferences.dart';
 
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends ConsumerWidget {
   ProfilePage({super.key});
 
   final user = FirebaseAuth.instance.currentUser!;
@@ -13,13 +15,16 @@ class ProfilePage extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final colorSchemeName = ref.watch(preferencesProvider).colorScheme;
+    final colorScheme = AppColors.schemes[colorSchemeName]!;
     return Scaffold(
       appBar: AppBar(
+        foregroundColor: colorScheme['text'],
         title: const Text('Profile'),
-        backgroundColor: AppColors.black,
+        backgroundColor: colorScheme['back'],
       ),
-      backgroundColor: AppColors.black,
+      backgroundColor: colorScheme['back'],
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(20.0),
@@ -29,18 +34,17 @@ class ProfilePage extends StatelessWidget {
               // Imagen de perfil con botón para cambiar la foto
               Stack(
                 children: [
-                  const CircleAvatar(
+                  CircleAvatar(
                     radius: 60,
                     backgroundImage:
-                        AssetImage('assets/profile_placeholder.png'),
-                    backgroundColor: AppColors.darkGrey,
+                        const AssetImage('assets/profile_placeholder.png'),
+                    backgroundColor: colorScheme['neutral2'],
                   ),
                   Positioned(
                     bottom: 0,
                     right: 0,
                     child: IconButton(
-                      icon:
-                          const Icon(Icons.camera_alt, color: AppColors.white),
+                      icon: Icon(Icons.camera_alt, color: colorScheme['text']),
                       onPressed: () {
                         //TODO Acción para cambiar la imagen
                       },
@@ -53,10 +57,10 @@ class ProfilePage extends StatelessWidget {
               // Nombre del usuario
               Text(
                 getUserName(user.email!),
-                style: const TextStyle(
+                style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
-                    color: AppColors.white),
+                    color: colorScheme['text']),
               ),
               const SizedBox(height: 10),
 
@@ -72,15 +76,16 @@ class ProfilePage extends StatelessWidget {
 
               // Botón para editar la información
               ElevatedButton.icon(
-                icon: const Icon(
+                icon: Icon(
                   Icons.edit,
-                  color: AppColors.lightBlue,
+                  color: colorScheme['secondary'],
                 ),
-                label: const Text(
+                label: Text(
                   'Edit Profile',
-                  style: TextStyle(color: AppColors.lightBlue),
+                  style: TextStyle(color: colorScheme['secondary']),
                 ),
                 style: ElevatedButton.styleFrom(
+                  backgroundColor: colorScheme['neutral2'],
                   padding:
                       const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                   shape: RoundedRectangleBorder(
@@ -94,12 +99,12 @@ class ProfilePage extends StatelessWidget {
               const SizedBox(height: 30),
 
               // Opciones adicionales (Cambiar contraseña, Cerrar sesión)
-              const Divider(
-                color: AppColors.grey60,
+              Divider(
+                color: colorScheme['neutral2'],
               ),
               SettingsTile(
                 icon: Icons.lock_outline,
-                iconColor: AppColors.brightBlue,
+                iconColor: colorScheme['primary']!,
                 title: 'Change Password',
                 onTap: () {
                   // TODO Acción cuando se selecciona la opción
