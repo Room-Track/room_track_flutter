@@ -127,16 +127,18 @@ class HomePage extends ConsumerWidget {
                       alignment: WrapAlignment.start,
                       spacing: 10,
                       runSpacing: 10,
-                      children: history.map((card) {
-                        return Cardroom(
-                          name: card.name,
-                          isTagged: card.isTagged,
-                          icon: card.icon,
-                          onTapF: () {
-                            goToInfoPage(context, card.name);
-                          },
-                        );
-                      }) as List<Widget>,
+                      children: [
+                        ...history.reversed.map((card) {
+                          return Cardroom(
+                            name: card.name,
+                            isTagged: card.isTagged,
+                            icon: card.icon,
+                            onTapF: () {
+                              goToInfoPage(context, ref, card);
+                            },
+                          );
+                        })
+                      ],
                     )),
             ),
           ),

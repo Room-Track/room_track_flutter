@@ -33,7 +33,7 @@ class Taggedgrid extends ConsumerWidget {
                 isTagged: card.isTagged,
                 icon: card.icon,
                 onTapF: () {
-                  goToInfoPage(context, card.name);
+                  goToInfoPage(context, ref, card);
                 },
               );
             }),

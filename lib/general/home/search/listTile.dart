@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:room_track_flutter/colors.dart';
 import 'package:room_track_flutter/general/home/cardRoom.dart';
 import 'package:room_track_flutter/models/cards.dart';
 
-class SearchTile extends StatelessWidget {
+class SearchTile extends ConsumerWidget {
   final CardInfo info;
   const SearchTile({
     super.key,
@@ -12,7 +13,7 @@ class SearchTile extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return ListTile(
       contentPadding: const EdgeInsets.symmetric(vertical: 15, horizontal: 30),
       leading: SvgPicture.asset(
@@ -38,7 +39,7 @@ class SearchTile extends StatelessWidget {
         ),
       ),
       onTap: () {
-        goToInfoPage(context, info.name);
+        goToInfoPage(context, ref, info);
       },
     );
   }

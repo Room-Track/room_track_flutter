@@ -32,6 +32,9 @@ class CardModel extends ChangeNotifier {
   });
 
   void pushHistory(CardInfo card) {
+    if (historyCards.indexWhere((cardIt) => cardIt.name == card.name) != -1) {
+      return;
+    }
     historyCards.add(card);
     if (historyCards.length > maxHistoryLength) {
       historyCards.removeAt(0);
