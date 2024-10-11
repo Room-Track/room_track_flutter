@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:room_track_flutter/models/cards.dart';
 
-class InfoPage extends StatelessWidget {
-  final String name;
+class InfoPage extends ConsumerWidget {
+  final CardInfo info;
   const InfoPage({
     super.key,
-    required this.name,
+    required this.info,
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Info $name"),
+        title: Text("Info ${info.name}"),
       ),
-      body: Text(name),
+      body: Text(info.name),
     );
   }
 }

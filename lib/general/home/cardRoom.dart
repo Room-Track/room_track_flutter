@@ -4,11 +4,17 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:room_track_flutter/colors.dart';
 import 'package:room_track_flutter/elevations.dart';
 import 'package:room_track_flutter/general/home/info/page.dart';
+import 'package:room_track_flutter/models/cards.dart';
 import 'package:room_track_flutter/models/preferences.dart';
 
-void goToInfoPage(BuildContext context, String name) {
+void goToInfoPage(BuildContext context, WidgetRef ref, CardInfo info) {
+  ref.read(cardProvider).pushHistory(info);
   Navigator.push(
-      context, MaterialPageRoute(builder: (context) => InfoPage(name: name)));
+      context,
+      MaterialPageRoute(
+          builder: (context) => InfoPage(
+                info: info,
+              )));
 }
 
 class Cardroom extends ConsumerWidget {

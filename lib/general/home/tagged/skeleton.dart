@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:room_track_flutter/colors.dart';
 import 'package:room_track_flutter/general/home/cardSkeleton.dart';
+import 'package:room_track_flutter/general/home/tagged/lazyTagged.dart';
 import 'package:room_track_flutter/models/preferences.dart';
 
 class TaggedSkeleton extends ConsumerWidget {
@@ -40,7 +41,7 @@ class TaggedSkeleton extends ConsumerWidget {
               elevation: 0,
               child: InkWell(
                   onTap: () {
-                    // TODO mostrar todos los taggeds
+                    goToTaggedsPage(context);
                   },
                   child: Padding(
                     padding: const EdgeInsets.all(10),
