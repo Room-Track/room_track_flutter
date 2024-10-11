@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:room_track_flutter/colors.dart';
 import 'package:room_track_flutter/models/cards.dart';
+import 'package:room_track_flutter/models/preferences.dart';
 
 class InfoPage extends ConsumerWidget {
   final CardInfo info;
@@ -13,14 +13,17 @@ class InfoPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final colorSchemeName = ref.watch(preferencesProvider).colorScheme;
+    final colorScheme = AppColors.schemes[colorSchemeName]!;
+
     return Scaffold(
-      backgroundColor: AppColors.black,
+      backgroundColor: colorScheme['back'],
       appBar: AppBar(
-          foregroundColor: AppColors.white,
-          backgroundColor: AppColors.black,
+          foregroundColor: colorScheme['text'],
+          backgroundColor: colorScheme['back'],
           title: Text(
             "${info.name} ${info.type}",
-            style: const TextStyle(color: AppColors.white),
+            style: TextStyle(color: colorScheme['text']),
           )),
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
@@ -29,10 +32,10 @@ class InfoPage extends ConsumerWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
+                Text(
                   "General Location",
                   style: TextStyle(
-                    color: AppColors.white,
+                    color: colorScheme['text'],
                     fontSize: 32,
                   ),
                 ),
@@ -50,7 +53,7 @@ class InfoPage extends ConsumerWidget {
                         child: Container(
                           width: 200,
                           height: 200,
-                          color: AppColors.brightBlue,
+                          color: colorScheme['primary'],
                           child: const Center(
                             child: Text("Map Image"),
                           ),
@@ -63,31 +66,31 @@ class InfoPage extends ConsumerWidget {
                         children: [
                           Text(
                             "${info.name.substring(0, 1)} Building",
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontSize: 20,
-                              color: AppColors.white,
+                              color: colorScheme['text'],
                             ),
                           ),
-                          const Text(
+                          Text(
                             "Inside of USM",
                             style: TextStyle(
                               fontSize: 20,
-                              color: AppColors.lightBlue,
+                              color: colorScheme['secondary'],
                             ),
                           ),
                           const SizedBox(height: 35),
-                          const Text(
+                          Text(
                             "Level",
                             style: TextStyle(
                               fontSize: 20,
-                              color: AppColors.white,
+                              color: colorScheme['text'],
                             ),
                           ),
-                          const Text(
+                          Text(
                             "2nd Floor",
                             style: TextStyle(
                               fontSize: 20,
-                              color: AppColors.lightBlue,
+                              color: colorScheme['secondary'],
                             ),
                           ),
                         ],
@@ -102,14 +105,15 @@ class InfoPage extends ConsumerWidget {
                   },
                   style: TextButton.styleFrom(
                     padding: const EdgeInsets.all(15),
-                    backgroundColor: AppColors.brightBlue,
+                    backgroundColor: colorScheme['primary'],
                   ),
-                  child: const Center(
+                  child: Center(
                     child: Text(
                       "Go",
                       style: TextStyle(
-                        color: AppColors.white,
+                        color: colorScheme['text'],
                         fontSize: 18,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
@@ -128,14 +132,14 @@ class InfoPage extends ConsumerWidget {
                   child: Icon(
                     info.isTagged ? Icons.star_sharp : Icons.star_outline,
                     size: 35,
-                    color: AppColors.lightBlue,
+                    color: colorScheme['secondary'],
                   ),
                 ),
                 style: IconButton.styleFrom(
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  backgroundColor: AppColors.darkGrey,
+                  backgroundColor: colorScheme['neutral2'],
                 ),
               ),
             ),
