@@ -1,11 +1,16 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:room_track_flutter/colors.dart';
 import 'package:room_track_flutter/elevations.dart';
 import 'package:room_track_flutter/general/home/cardRoom.dart';
+import 'package:room_track_flutter/general/home/search/page.dart';
+import 'package:room_track_flutter/general/home/tagged/lazyTagged.dart';
+import 'package:room_track_flutter/models/cards.dart';
+import 'package:room_track_flutter/models/preferences.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends ConsumerWidget {
   HomePage({super.key});
 
   final user = FirebaseAuth.instance.currentUser!;
@@ -14,25 +19,18 @@ class HomePage extends StatelessWidget {
     return email.substring(0, email.indexOf("@"));
   }
 
-  void onTap() {
-    print("Button pressed!");
-  }
-
-  List<Cardroom> getTagged() {
-    return List.generate(3, (i) {
-      return Cardroom(
-        name: "M20$i",
-        isTagged: true,
-        icon: "assets/room.svg",
-        onTapF: onTap,
-      );
-    });
+  void goToSearchPage(BuildContext context) {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => const SearchPage()));
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final colorSchemeName = ref.watch(preferencesProvider).colorScheme;
+    final colorScheme = AppColors.schemes[colorSchemeName]!;
+    final history = ref.watch(cardProvider).historyCards;
     return Scaffold(
-      backgroundColor: AppColors.black,
+      backgroundColor: colorScheme["back"],
       body: ListView(
         padding: const EdgeInsets.all(10),
         children: [
@@ -47,18 +45,18 @@ class HomePage extends StatelessWidget {
                     margin: const EdgeInsets.fromLTRB(0, 0, 10, 0),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
-                      color: AppColors.brightBlue,
+                      color: colorScheme["primary"],
                     ),
                     child: Text(
                       getUserName(user.email!),
                       style: const TextStyle(fontWeight: FontWeight.w500),
                     ),
                   ),
-                  const CircleAvatar(
+                  CircleAvatar(
                     radius: 25,
                     backgroundImage:
-                        AssetImage('assets/profile_placeholder.png'),
-                    backgroundColor: AppColors.darkGrey,
+                        const AssetImage('assets/profile_placeholder.png'),
+                    backgroundColor: colorScheme["neutral2"],
                   )
                 ],
               )),
@@ -74,7 +72,7 @@ class HomePage extends StatelessWidget {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(50))),
                 onPressed: () {
-                  // TODO Pasar a pantalla de busqueda
+                  goToSearchPage(context);
                 },
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
@@ -87,9 +85,10 @@ class HomePage extends StatelessWidget {
                         height: 20,
                       ),
                       const SizedBox(width: 15),
-                      const Text(
+                      Text(
                         "Search rooms",
-                        style: TextStyle(color: AppColors.grey, fontSize: 16),
+                        style: TextStyle(
+                            color: colorScheme["neutral"], fontSize: 16),
                       )
                     ],
                   ),
@@ -100,7 +99,18 @@ class HomePage extends StatelessWidget {
           const Padding(
             padding: EdgeInsets.all(20),
             child: Text(
-              "Tagged Rooms",
+              "Tagged",
+              style: TextStyle(
+                fontSize: 32,
+                color: AppColors.white,
+              ),
+            ),
+          ),
+          const LazyTaggeds(limit: 3),
+          const Padding(
+            padding: EdgeInsets.all(20),
+            child: Text(
+              "History",
               style: TextStyle(
                 fontSize: 32,
                 color: AppColors.white,
@@ -108,46 +118,28 @@ class HomePage extends StatelessWidget {
             ),
           ),
           SizedBox(
-            height: 450,
+            height: 400,
             child: Align(
               alignment: Alignment.topCenter,
-              child: Wrap(
-                alignment: WrapAlignment.start,
-                spacing: 10,
-                runSpacing: 10,
-                children: [
-                  ...getTagged(),
-                  Card(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                      side: const BorderSide(
-                        color: AppColors.darkGrey,
-                        width: 2.0,
-                      ),
-                    ),
-                    color: AppColors.black,
-                    clipBehavior: Clip.hardEdge,
-                    elevation: 0,
-                    child: InkWell(
-                        onTap: () {
-                          // TODO mostrar todos los taggeds
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: SizedBox(
-                              width: 190,
-                              height: 140,
-                              child: Center(
-                                child: SvgPicture.asset(
-                                  "assets/arrow_forward.svg",
-                                  width: 30,
-                                  height: 30,
-                                ),
-                              )),
-                        )),
-                  )
-                ],
-              ),
+              child: (history.isEmpty
+                  ? const Center(child: Text("Try searching for rooms.."))
+                  : Wrap(
+                      alignment: WrapAlignment.start,
+                      spacing: 10,
+                      runSpacing: 10,
+                      children: [
+                        ...history.reversed.map((card) {
+                          return Cardroom(
+                            name: card.name,
+                            isTagged: card.isTagged,
+                            icon: card.icon,
+                            onTapF: () {
+                              goToInfoPage(context, ref, card);
+                            },
+                          );
+                        })
+                      ],
+                    )),
             ),
           ),
         ],
