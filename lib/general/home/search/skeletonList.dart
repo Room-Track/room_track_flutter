@@ -1,18 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:room_track_flutter/general/home/search/skeletonTile.dart';
 
 class SkeletonList extends StatelessWidget {
   const SkeletonList({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
-      children: [
-        Text("Hola 1"),
-        Text("Hola 2"),
-        Text("Hola 3"),
-        Text("Hola 4"),
-        Text("Hola 5"),
-      ],
+    return Column(
+      children: List.generate(10, (idx) {
+        return const SkeletonTile();
+      }),
     );
   }
 }

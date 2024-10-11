@@ -1,19 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:room_track_flutter/colors.dart';
-import 'package:room_track_flutter/general/home/search/skeletonList.dart';
+import 'package:room_track_flutter/general/home/search/lazyList.dart';
+import 'package:room_track_flutter/models/search.dart';
 
 class SearchPage extends ConsumerWidget {
+
   const SearchPage({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      body: Column(
+      backgroundColor: AppColors.black,
+      body: ListView(
         children: [
           const SizedBox(height: 10),
           Padding(
             padding: const EdgeInsets.all(5),
             child: SearchBar(
+              onChanged: (String query) {
+                ref.read(searchQueryProvider).changeQuery(query);
+              },
+              autoFocus: true,
               leading: IconButton(
                   onPressed: () {
                     Navigator.pop(context);
@@ -42,7 +49,7 @@ class SearchPage extends ConsumerWidget {
               ),
             ),
           ),
-          const SkeletonList(),
+          const LazySearchList(),
         ],
       ),
     );
