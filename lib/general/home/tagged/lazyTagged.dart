@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:room_track_flutter/general/home/tagged/page.dart';
 import 'package:room_track_flutter/general/home/tagged/skeleton.dart';
 import 'package:room_track_flutter/general/home/tagged/taggedGrid.dart';
 import 'package:room_track_flutter/http/get.dart';
 import 'package:room_track_flutter/models/cards.dart';
+
+void goToTaggedsPage(BuildContext context) {
+  Navigator.push(
+      context, MaterialPageRoute(builder: (context) => const TaggedsPage()));
+}
 
 class LazyTaggeds extends ConsumerStatefulWidget {
   final int limit;
@@ -40,7 +46,7 @@ class _LazyTaggeds extends ConsumerState<ConsumerStatefulWidget> {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const TaggedSkeleton();
           } else if (snapshot.hasData) {
-            return Taggedgrid(tagged: snapshot.data!);
+            return Taggedgrid(tagged: snapshot.data!, moreButton: limit != 0,);
           }
 
           return const SizedBox(
