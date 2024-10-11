@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:room_track_flutter/general/home/search/listTile.dart';
 import 'package:room_track_flutter/general/home/search/skeletonTile.dart';
 
 class SkeletonList extends StatelessWidget {

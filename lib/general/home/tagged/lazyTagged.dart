@@ -18,7 +18,7 @@ class _LazyTaggeds extends ConsumerState<ConsumerStatefulWidget> {
   @override
   void initState() {
     super.initState();
-    _futureCards = httpReuestTaggeds(ref);
+    _futureCards = httpReuestTaggeds();
   }
 
   @override

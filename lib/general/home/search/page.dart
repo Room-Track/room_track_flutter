@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:room_track_flutter/colors.dart';
+import 'package:room_track_flutter/general/home/search/lazyList.dart';
 import 'package:room_track_flutter/general/home/search/skeletonList.dart';
 
 class SearchPage extends ConsumerWidget {
@@ -44,7 +45,7 @@ class SearchPage extends ConsumerWidget {
               ),
             ),
           ),
-          const SkeletonList(),
+          const LazySearchList(),
         ],
       ),
     );
