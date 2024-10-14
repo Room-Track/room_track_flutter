@@ -35,18 +35,33 @@ class _LazyTaggeds extends ConsumerState<ConsumerStatefulWidget> {
   @override
   void initState() {
     super.initState();
-    _futureCards = httpReuestTaggedsLimit(limit);
+    _futureCards = httpRequestTaggedsLimit(limit);
+  }
+
+  void _updateFutureCards() {
+    _futureCards = httpRequestTaggedsLimit(limit);
+    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
+    final changeOntag = ref.watch(cardProvider).change;
+    print(changeOntag);
+    if (changeOntag) {
+      _updateFutureCards();
+      ref.read(cardProvider).change = false;
+    }
+
     return FutureBuilder(
         future: _futureCards,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const TaggedSkeleton();
           } else if (snapshot.hasData) {
-            return Taggedgrid(tagged: snapshot.data!, moreButton: limit != 0,);
+            return Taggedgrid(
+              tagged: snapshot.data!,
+              moreButton: limit != 0,
+            );
           }
 
           return const SizedBox(

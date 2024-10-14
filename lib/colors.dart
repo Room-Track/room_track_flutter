@@ -25,7 +25,7 @@ class AppColors {
   };
   static Map<String, Color> lightScheme = {
     'primary': brightBlue,
-    'secondary': lightBlue,
+    'secondary': darkBlue,
     'secondaryLight': lightBlue90,
     'neutral': darkGrey,
     'neutral2': lightGrey,
