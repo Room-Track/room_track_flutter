@@ -29,10 +29,17 @@ class CardInfo {
 class CardModel extends ChangeNotifier {
   List<CardInfo> historyCards;
   int maxHistoryLength = 4;
+  bool change;
 
   CardModel({
     required this.historyCards,
+    required this.change,
   });
+
+  void notifyChangeOnTag() {
+    change = !change;
+    notifyListeners();
+  }
 
   void pushHistory(CardInfo card) {
     if (historyCards.indexWhere((cardIt) => cardIt.name == card.name) != -1) {
@@ -49,5 +56,6 @@ class CardModel extends ChangeNotifier {
 final cardProvider = ChangeNotifierProvider<CardModel>((ref) {
   return CardModel(
     historyCards: [],
+    change: false,
   );
 });

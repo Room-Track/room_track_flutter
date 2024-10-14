@@ -8,6 +8,7 @@ import 'package:room_track_flutter/models/cards.dart';
 import 'package:room_track_flutter/models/preferences.dart';
 
 void goToInfoPage(BuildContext context, WidgetRef ref, CardInfo info) {
+  ref.read(cardProvider).pushHistory(info);
   Navigator.push(
       context,
       MaterialPageRoute(
@@ -20,10 +21,10 @@ class Cardroom extends ConsumerWidget {
   final String name;
   final String icon;
   final bool isTagged;
-  bool? hideTag;
+  final bool? hideTag;
   final GestureTapCallback onTapF;
 
-  Cardroom({
+  const Cardroom({
     super.key,
     required this.name,
     required this.isTagged,

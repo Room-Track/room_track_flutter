@@ -45,10 +45,11 @@ class _LazyTaggeds extends ConsumerState<ConsumerStatefulWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final histSize = ref.watch(cardProvider).historyCards.length;
-
-    if (histSize != 0) {
+    final changeOntag = ref.watch(cardProvider).change;
+    print(changeOntag);
+    if (changeOntag) {
       _updateFutureCards();
+      ref.read(cardProvider).change = false;
     }
 
     return FutureBuilder(

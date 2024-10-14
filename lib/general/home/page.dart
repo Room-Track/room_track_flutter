@@ -11,7 +11,7 @@ import 'package:room_track_flutter/models/cards.dart';
 import 'package:room_track_flutter/models/preferences.dart';
 
 class HomePage extends ConsumerStatefulWidget {
-  HomePage({super.key});
+  const HomePage({super.key});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _HomePage();
