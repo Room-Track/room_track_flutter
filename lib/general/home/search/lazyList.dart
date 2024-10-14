@@ -23,7 +23,7 @@ class _LazySearchList extends ConsumerState<ConsumerStatefulWidget> {
   }
 
   void _updateFutureListTile(String query) {
-    _futureListTile = httpReuestSearch(query);
+    _futureListTile = httpRequestSearch(query);
     setState(() {});
   }
 

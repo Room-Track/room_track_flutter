@@ -6,20 +6,23 @@ class CardInfo {
   String icon;
   bool isTagged;
   String type;
+  String gloc;
 
   CardInfo({
     required this.name,
     required this.icon,
     required this.isTagged,
     required this.type,
+    required this.gloc,
   });
 
-  factory CardInfo.fromJson(Map<String, dynamic> json) {
+  factory CardInfo.fromJson(Map<String, dynamic> json, bool tagged) {
     return CardInfo(
         name: json['name'],
         icon: json['icon'],
-        isTagged: json['isTagged'],
-        type: json['type']);
+        isTagged: tagged,
+        type: json['type'],
+        gloc: json['gloc']);
   }
 }
 

@@ -10,9 +10,14 @@ import 'package:room_track_flutter/general/home/tagged/lazyTagged.dart';
 import 'package:room_track_flutter/models/cards.dart';
 import 'package:room_track_flutter/models/preferences.dart';
 
-class HomePage extends ConsumerWidget {
+class HomePage extends ConsumerStatefulWidget {
   HomePage({super.key});
 
+  @override
+  ConsumerState<ConsumerStatefulWidget> createState() => _HomePage();
+}
+
+class _HomePage extends ConsumerState<ConsumerStatefulWidget> {
   final user = FirebaseAuth.instance.currentUser!;
 
   String getUserName(String email) {
@@ -25,7 +30,7 @@ class HomePage extends ConsumerWidget {
   }
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final colorSchemeName = ref.watch(preferencesProvider).colorScheme;
     final colorScheme = AppColors.schemes[colorSchemeName]!;
     final history = ref.watch(cardProvider).historyCards;
@@ -133,6 +138,7 @@ class HomePage extends ConsumerWidget {
                             name: card.name,
                             isTagged: card.isTagged,
                             icon: card.icon,
+                            hideTag: true,
                             onTapF: () {
                               goToInfoPage(context, ref, card);
                             },
