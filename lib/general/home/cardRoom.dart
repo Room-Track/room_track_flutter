@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:room_track_flutter/colors.dart';
 import 'package:room_track_flutter/elevations.dart';
-import 'package:room_track_flutter/general/home/info/page.dart';
+import 'package:room_track_flutter/general/home/info/lazyInfo.dart';
 import 'package:room_track_flutter/models/cards.dart';
 import 'package:room_track_flutter/models/preferences.dart';
 
@@ -12,8 +12,8 @@ void goToInfoPage(BuildContext context, WidgetRef ref, CardInfo info) {
   Navigator.push(
       context,
       MaterialPageRoute(
-          builder: (context) => InfoPage(
-                info: info,
+          builder: (context) => LazyInfoPage(
+                name: info.name,
               )));
 }
 
@@ -21,6 +21,7 @@ class Cardroom extends ConsumerWidget {
   final String name;
   final String icon;
   final bool isTagged;
+  final bool? hideTag;
   final GestureTapCallback onTapF;
 
   const Cardroom({
@@ -29,6 +30,7 @@ class Cardroom extends ConsumerWidget {
     required this.isTagged,
     required this.icon,
     required this.onTapF,
+    this.hideTag,
   });
 
   @override
@@ -51,10 +53,12 @@ class Cardroom extends ConsumerWidget {
                 children: [
                   Align(
                     alignment: Alignment.centerRight,
-                    child: Icon(
-                      isTagged ? Icons.star_sharp : Icons.star_outline,
-                      color: colorScheme["text"],
-                    ),
+                    child: hideTag != null
+                        ? const Text("")
+                        : Icon(
+                            isTagged ? Icons.star_sharp : Icons.star_outline,
+                            color: colorScheme["text"],
+                          ),
                   ),
                   SvgPicture.asset(
                     icon,

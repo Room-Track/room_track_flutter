@@ -1,14 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:room_track_flutter/colors.dart';
+import 'package:room_track_flutter/models/preferences.dart';
 import 'package:url_launcher/url_launcher.dart'; // Importa el paquete url_launcher
 
-class ContactPage extends StatelessWidget {
-  const ContactPage({Key? key}) : super(key: key);
+class ContactPage extends ConsumerWidget {
+  const ContactPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final colorSchemeName = ref.watch(preferencesProvider).colorScheme;
+    final colorScheme = AppColors.schemes[colorSchemeName]!;
+
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: colorScheme['back'],
+        foregroundColor: colorScheme['text'],
         title: const Text('Contact Us'),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
@@ -17,17 +24,18 @@ class ContactPage extends StatelessWidget {
           },
         ),
       ),
+      backgroundColor: colorScheme['back'],
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
+            Text(
               'Need help? Contact us!',
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
-                color: Colors.white,
+                color: colorScheme['text'],
               ),
             ),
             const SizedBox(height: 20),
@@ -38,10 +46,14 @@ class ContactPage extends StatelessWidget {
                 icon: const Icon(Icons.email),
                 label: const Text('Send Email'),
                 style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
+                  iconColor: colorScheme['secondary'],
+                  foregroundColor: colorScheme['secondary'],
+                  backgroundColor: colorScheme['neutral2'],
                 ),
                 onPressed: () {
                   _sendEmail();
@@ -56,10 +68,14 @@ class ContactPage extends StatelessWidget {
                 icon: const Icon(Icons.web),
                 label: const Text('Instagram'),
                 style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
+                  iconColor: colorScheme['secondary'],
+                  foregroundColor: colorScheme['secondary'],
+                  backgroundColor: colorScheme['neutral2'],
                 ),
                 onPressed: () {
                   _launchSupportWebsite();
@@ -77,7 +93,8 @@ class ContactPage extends StatelessWidget {
     final Uri emailLaunchUri = Uri(
       scheme: 'mailto',
       path: 'support@example.com', // Cambia esto por tu correo de soporte
-      query: 'subject=App Support&body=Hello, I need help with...', // Asunto y cuerpo del correo
+      query:
+          'subject=App Support&body=Hello, I need help with...', // Asunto y cuerpo del correo
     );
 
     if (await canLaunchUrl(emailLaunchUri)) {
@@ -89,7 +106,8 @@ class ContactPage extends StatelessWidget {
 
   // Función para abrir el sitio web de soporte
   void _launchSupportWebsite() async {
-    const String url = 'https://example.com/support'; // Cambia por tu URL de soporte
+    const String url =
+        'https://example.com/support'; // Cambia por tu URL de soporte
     if (await canLaunchUrl(Uri.parse(url))) {
       await launchUrl(Uri.parse(url));
     } else {

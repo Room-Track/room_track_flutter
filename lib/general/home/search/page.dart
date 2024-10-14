@@ -2,15 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:room_track_flutter/colors.dart';
 import 'package:room_track_flutter/general/home/search/lazyList.dart';
+import 'package:room_track_flutter/models/preferences.dart';
 import 'package:room_track_flutter/models/search.dart';
 
 class SearchPage extends ConsumerWidget {
-
   const SearchPage({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final colorSchemeName = ref.watch(preferencesProvider).colorScheme;
+    final colorScheme = AppColors.schemes[colorSchemeName]!;
     return Scaffold(
-      backgroundColor: AppColors.black,
+      backgroundColor: colorScheme['back'],
       body: ListView(
         children: [
           const SizedBox(height: 10),

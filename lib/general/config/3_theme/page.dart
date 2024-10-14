@@ -27,8 +27,12 @@ class _ThemePageState extends ConsumerState<ConsumerStatefulWidget> {
   @override
   Widget build(BuildContext context) {
     _selectedTheme = ref.watch(preferencesProvider).colorScheme;
+    final colorScheme = AppColors.schemes[_selectedTheme]!;
+
     return Scaffold(
       appBar: AppBar(
+        foregroundColor: colorScheme['text'],
+        backgroundColor: colorScheme['back'],
         title: const Text('Theme'),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
@@ -37,17 +41,18 @@ class _ThemePageState extends ConsumerState<ConsumerStatefulWidget> {
           },
         ),
       ),
+      backgroundColor: colorScheme['back'],
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
+            Text(
               'Select your theme',
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
-                color: Colors.white,
+                color: colorScheme['text'],
               ),
             ),
             const SizedBox(height: 20),
@@ -61,10 +66,10 @@ class _ThemePageState extends ConsumerState<ConsumerStatefulWidget> {
                   return ListTile(
                     title: Text(
                       themeName,
-                      style: const TextStyle(color: Colors.white),
+                      style: TextStyle(color: colorScheme['text']),
                     ),
                     trailing: _selectedTheme == themeName
-                        ? const Icon(Icons.check, color: Colors.blue)
+                        ? Icon(Icons.check, color: colorScheme['primary'])
                         : null,
                     onTap: () {
                       setState(() {

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:room_track_flutter/colors.dart';
+import 'package:room_track_flutter/models/preferences.dart';
 
-class SettingsTile extends StatelessWidget {
+class SettingsTile extends ConsumerWidget {
   final IconData icon;
   final String title;
   final Color iconColor;
@@ -16,16 +18,18 @@ class SettingsTile extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final colorSchemeName = ref.watch(preferencesProvider).colorScheme;
+    final colorScheme = AppColors.schemes[colorSchemeName]!;
     return ListTile(
       contentPadding:
           const EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
       leading: Icon(icon, color: iconColor),
       title: Text(
         title,
-        style: const TextStyle(color: AppColors.white),
+        style: TextStyle(color: colorScheme['text']),
       ),
-      trailing: const Icon(Icons.arrow_forward_ios, color: AppColors.white150),
+      trailing: Icon(Icons.arrow_forward_ios, color: colorScheme['neutral']),
       onTap: onTap,
     );
   }

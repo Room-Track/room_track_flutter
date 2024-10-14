@@ -6,30 +6,40 @@ class CardInfo {
   String icon;
   bool isTagged;
   String type;
+  String gloc;
 
   CardInfo({
     required this.name,
     required this.icon,
     required this.isTagged,
     required this.type,
+    required this.gloc,
   });
 
-  factory CardInfo.fromJson(Map<String, dynamic> json) {
+  factory CardInfo.fromJson(Map<String, dynamic> json, bool tagged) {
     return CardInfo(
         name: json['name'],
         icon: json['icon'],
-        isTagged: json['isTagged'],
-        type: json['type']);
+        isTagged: tagged,
+        type: json['type'],
+        gloc: json['gloc']);
   }
 }
 
 class CardModel extends ChangeNotifier {
   List<CardInfo> historyCards;
   int maxHistoryLength = 4;
+  bool change;
 
   CardModel({
     required this.historyCards,
+    required this.change,
   });
+
+  void notifyChangeOnTag() {
+    change = !change;
+    notifyListeners();
+  }
 
   void pushHistory(CardInfo card) {
     if (historyCards.indexWhere((cardIt) => cardIt.name == card.name) != -1) {
@@ -46,5 +56,6 @@ class CardModel extends ChangeNotifier {
 final cardProvider = ChangeNotifierProvider<CardModel>((ref) {
   return CardModel(
     historyCards: [],
+    change: false,
   );
 });

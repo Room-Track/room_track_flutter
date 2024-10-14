@@ -27,24 +27,27 @@ class _FontPageState extends ConsumerState<ConsumerStatefulWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final colorSchemeName = ref.watch(preferencesProvider).colorScheme;
+    final colorScheme = AppColors.schemes[colorSchemeName]!;
     _selectedFontSize = ref.watch(preferencesProvider).fontScheme;
     return Scaffold(
       appBar: AppBar(
+        foregroundColor: colorScheme['text'],
         title: const Text('Font Size'),
-        backgroundColor: AppColors.black,
+        backgroundColor: colorScheme['back'],
       ),
-      backgroundColor: AppColors.black,
+      backgroundColor: colorScheme['back'],
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
+            Text(
               'Select your preferred font size',
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
-                color: Colors.white,
+                color: colorScheme['text'],
               ),
             ),
             const SizedBox(height: 20),
@@ -58,12 +61,12 @@ class _FontPageState extends ConsumerState<ConsumerStatefulWidget> {
                     title: Text(
                       fontSizeName,
                       style: TextStyle(
-                        color: AppColors.white,
+                        color: colorScheme['text'],
                         fontSize: fontSizeValue,
                       ),
                     ),
                     trailing: _selectedFontSize == fontSizeName
-                        ? const Icon(Icons.check, color: AppColors.brightBlue)
+                        ? Icon(Icons.check, color: colorScheme['primary'])
                         : null,
                     onTap: () {
                       setState(() {

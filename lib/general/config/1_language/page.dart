@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:room_track_flutter/colors.dart';
+import 'package:room_track_flutter/models/preferences.dart';
 
-class LanguagePage extends StatefulWidget {
+class LanguagePage extends ConsumerStatefulWidget {
   const LanguagePage({super.key});
 
   @override
-  State<StatefulWidget> createState() => _LanguagePageState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _LanguagePageState();
 }
 
-class _LanguagePageState extends State<LanguagePage> {
+class _LanguagePageState extends ConsumerState<LanguagePage> {
   String _selectedLanguage = 'English'; // Idioma por defecto
 
   final List<String> _languages = [
@@ -21,22 +23,27 @@ class _LanguagePageState extends State<LanguagePage> {
 
   @override
   Widget build(BuildContext context) {
+    final colorSchemeName = ref.watch(preferencesProvider).colorScheme;
+    final colorScheme = AppColors.schemes[colorSchemeName]!;
+
     return Scaffold(
       appBar: AppBar(
-      backgroundColor: AppColors.black,
+        backgroundColor: colorScheme['back'],
+        foregroundColor: colorScheme['text'],
+        title: const Text("Language"),
       ),
-      backgroundColor: AppColors.black,
+      backgroundColor: colorScheme['back'],
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
+            Text(
               'Select your language',
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
-                color: AppColors.white,
+                color: colorScheme['text'],
               ),
             ),
             const SizedBox(height: 20),
@@ -48,10 +55,10 @@ class _LanguagePageState extends State<LanguagePage> {
                   return ListTile(
                     title: Text(
                       language,
-                      style: const TextStyle(color: AppColors.white),
+                      style: TextStyle(color: colorScheme['text']),
                     ),
                     trailing: _selectedLanguage == language
-                        ? const Icon(Icons.check, color: AppColors.brightBlue)
+                        ? Icon(Icons.check, color: colorScheme['primary'])
                         : null,
                     onTap: () {
                       setState(() {

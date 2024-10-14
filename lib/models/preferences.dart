@@ -30,3 +30,5 @@ final preferencesProvider = ChangeNotifierProvider<PreferencesModel>((ref) {
     colorScheme: "Dark",
   );
 });
+
+
