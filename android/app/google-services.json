@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:852491266001:android:2c3ae61e2d50bdc253a2f0",
         "android_client_info": {
-          "package_name": "com.roomtrack.app"
+          "package_name": "com.example.room_track_flutter"
         }
       },
       "oauth_client": [],

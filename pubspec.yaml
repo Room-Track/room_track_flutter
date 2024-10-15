@@ -12,16 +12,21 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_svg: ^2.0.0
-  share_plus: ^6.3.0
+  share_plus: ^10.0.3
   url_launcher: ^6.1.7
-  package_info_plus: ^3.0.6
+  package_info_plus: ^8.0.3
   flutter_riverpod: ^2.5.1
-  http: ^0.13.6
+  http: ^1.2.1
+  dio: ^5.7.0
+  flutter_polyline_points: ^2.1.0
+  google_maps_flutter: ^2.5.0
+  cupertino_icons: ^1.0.8
+  location: ^7.0.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^4.0.0
+  flutter_lints: ^5.0.0
 
 flutter:
   uses-material-design: true
